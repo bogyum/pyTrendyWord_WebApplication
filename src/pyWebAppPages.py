@@ -2,6 +2,7 @@
 import json, pyUtilsClass
 from flask import Flask
 from flask import request
+from flask import jsonify
 from pyDAOClass import *
 
 dao = DAO()
@@ -39,6 +40,7 @@ def getWordInfo():
     else:
         result = wordInfo['info'] if collection == 'WordDictionary' else wordInfo['count']
 
+    #return jsonify(json.dumps(result, ensure_ascii=False))
     return result
 
 # input: 출력 TOP N 단어수, 정렬 기준점[totalCount, yearly, monthly, daily, bySubject], 날짜, 주제
