@@ -31,8 +31,8 @@ def getWordInfo():
     # 컬렉션 선택
     dao.setCollection(collection)
 
-    query = '{"word": "%s"}' % word
-    wordInfo = dao.select(query)
+    query = {"word": word}
+    wordInfo = dao.select(query, {"_id": 0})
 
     result = ''
     if wordInfo is None:
@@ -40,7 +40,6 @@ def getWordInfo():
     else:
         result = wordInfo['info'] if collection == 'WordDictionary' else wordInfo['count']
 
-    #return jsonify(json.dumps(result, ensure_ascii=False))
     return result
 
 # input: 출력 TOP N 단어수, 정렬 기준점[totalCount, yearly, monthly, daily, bySubject], 날짜, 주제
@@ -56,8 +55,8 @@ def getWordRank():
     # 단어 카운트 컬렉션 선택
     dao.setCollection("WordCount")
 
-    query = '{}'
-    filterInfo = '{"_id":0, "word": 1, "count": 1 }'
+    query = {}
+    filterInfo = {"_id": 0, "word": 1, "count": 1}
     wordInfo = dao.selectMany(query, filterInfo)
 
     data = {}
